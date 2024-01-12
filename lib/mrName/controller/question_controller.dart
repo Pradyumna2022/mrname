@@ -15,10 +15,13 @@ class ProductController extends GetxController{
   void fetchData()async{
     try{
       isLoading(true);
+
       var products = await ApiServices.getApi();
 
       if(products!=null){
+
         productList.value = products as List<QuizModel>;
+
       }else{
         print('shfdhsfhsdhfsd');
       }

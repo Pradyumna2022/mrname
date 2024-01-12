@@ -1,9 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mrname/mrName/views/total_question_collections.dart';
-
 import 'conponets/constant.dart';
 
 class SplashScreen extends StatefulWidget {
