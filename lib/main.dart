@@ -1,28 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mrname/mrName/splash_screen.dart';
 import 'package:mrname/rar.dart';
 
 void main() {
   runApp( MyApp());
+
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
    MyApp({super.key});
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+class _MyAppState extends State<MyApp> {
   final ThemeData lightTheme = ThemeData(
     // Define your light theme properties here
     brightness: Brightness.light,
     // other properties...
   );
-
   final ThemeData darkTheme = ThemeData(
     // Define your dark theme properties here
     brightness: Brightness.dark,
     // other properties...
   );
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      color: Colors.red,
       home: SplashScreen(),
       theme: ThemeData.light(
         useMaterial3: true

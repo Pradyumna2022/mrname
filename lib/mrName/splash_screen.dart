@@ -1,6 +1,8 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mrname/mrName/views/total_question_collections.dart';
+
 import 'conponets/constant.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -14,8 +16,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 4), () {
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>TotalQuestionCollections()), (route) => false);
+    Timer(Duration(seconds: 3), () {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>TotalQuestionCollections()));
     });
   }
 
