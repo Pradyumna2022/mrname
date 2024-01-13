@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mrname/mrName/controller/question_controller.dart';
 import 'package:mrname/mrName/views/total_question_collections.dart';
 
 import 'conponets/constant.dart';
@@ -13,10 +15,17 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  ProductController productController = Get.put(ProductController());
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () {
+    print('THIS IS SPLASH SCRENEN ________________________________________________');
+    productController.fetchData();
+    setState(() {
+
+    });
+    print('THIS IS SPLASH SCRENEN ________________________________________________');
+    Timer(Duration(seconds: 4), () {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>TotalQuestionCollections()));
     });
   }

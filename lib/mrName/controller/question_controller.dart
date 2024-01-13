@@ -4,13 +4,13 @@ import '../model/question_model.dart';
 class ProductController extends GetxController{
   var isLoading  = true.obs;
   var productList  = <QuizModel>[].obs;
-  @override
-  void onInit() {
-    // TODO: implement onInitv
-    super.onInit();
-    fetchData();
-
-  }
+  // @override
+  // void onInit() {
+  //   // TODO: implement onInitv
+  //   super.onInit();
+  //   fetchData();
+  //
+  // }
 
   void fetchData()async{
     try{

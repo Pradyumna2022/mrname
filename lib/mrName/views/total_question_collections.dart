@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mrname/mrName/apiservices/api_services.dart';
 import 'package:mrname/mrName/model/question_model.dart';
-
 import '../conponets/constant.dart';
 import '../controller/question_controller.dart';
 
@@ -105,12 +104,7 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
     }
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    print('THIS IS INIT METHOD ');
-  }
+  DateTime? lastPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +120,28 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
           key: _refreshIndicatorKey,
           onRefresh: _onRefresh,
           child: WillPopScope(
-            onWillPop: () => _showExitMessage(context),
+            onWillPop: () async{
+              final now = DateTime.now();
+              final maxDuration = Duration(seconds: 2);
+              final isWarning = lastPressed == null ||
+              now.difference(lastPressed!)>maxDuration;
+              if(isWarning){
+                lastPressed =DateTime.now();
+                final snackBar = SnackBar(
+                    backgroundColor: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.black:Colors.white,
+                    content:
+                Text("Double Tap to Close App",style: TextStyle(
+                  fontWeight: FontWeight.bold,fontSize: 19,color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white:Colors.black
+                ),));
+                ScaffoldMessenger.of(context)..removeCurrentSnackBar()..
+              showSnackBar(snackBar);
+                return false;
+              }else{return true;}
+
+            },
+
             child: Obx(() {
               if (productController.isLoading.value) {
                 return Center(
@@ -249,6 +264,7 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                                             //***********   FIRST OPTION  ***********
                                             InkWell(
                                               onTap: () {
+
                                                 if (!questionData
                                                     .isQuestionsLocked) {
                                                   setState(() {
@@ -289,16 +305,15 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                                                                   index]
                                                               .optionAEnglish
                                                               .toString(),
-                                                          style: GoogleFonts
-                                                              .josefinSans(
+                                                          style: TextStyle(
+                                                            fontFamily: 'Lora',
                                                                   fontSize: 15,
                                                                   color:
                                                                       getTextColor(
                                                                           index,
                                                                           1),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700)),
+                                                                 )
+                                                      ),
                                                       Text(
                                                           productController
                                                               .productList[
@@ -488,88 +503,4 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
     );
   }
 
-  //   ********************  THIS IS FOR SHOW DIALOG HERE! ************
-  Future<bool> _showExitMessage(BuildContext context) async {
-    return (await showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: RichText(
-              text: TextSpan(
-                style: showContextHeadStyle,
-                children: [
-                  TextSpan(text: 'Are you sure you want to exit? '),
-                  WidgetSpan(
-                    child: Image.asset(
-                      'assets/icons/sad.gif',
-                      height: 35.0, // Adjust height as needed
-                      width: 35.0, // Adjust width as needed
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            actions: [
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.red, borderRadius: BorderRadius.circular(10)),
-                padding: EdgeInsets.all(2),
-                child: TextButton(
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: Text(
-                    'No',
-                    style: showContextConfirmationStyle,
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(10)),
-                padding: EdgeInsets.all(2),
-                child: TextButton(
-                  onPressed: () => Navigator.of(context).pop(true),
-                  child: Text(
-                    'Yes',
-                    style: showContextConfirmationStyle,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        )) ??
-        false;
-  }
-  // Future<bool> _showExitMessage(BuildContext context) async {
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(
-  //       content: Row(
-  //         children: [
-  //           Text('Are you sure you want to exit?'),
-  //           SizedBox(width: 8.0),
-  //           Image.asset(
-  //             'assets/icons/sad.gif',
-  //             height: 35.0, // Adjust height as needed
-  //             width: 35.0, // Adjust width as needed
-  //           ),
-  //         ],
-  //       ),
-  //       duration: Duration(seconds: 4), // Adjust duration as needed
-  //       action: SnackBarAction(
-  //         label: 'Yes',
-  //         onPressed: () {
-  //           // Handle Yes button press
-  //           Navigator.of(context).pop(true);
-  //         },
-  //       ),
-  //     ),
-  //   );
-  //
-  //   // Automatically dismiss the Snackbar after 4 seconds
-  //   await Future.delayed(Duration(seconds: 4));
-  //
-  //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
-  //
-  //   // Return true to allow the back navigation
-  //   return true;
-  // }
 }
