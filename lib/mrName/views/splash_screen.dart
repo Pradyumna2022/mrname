@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:mrname/mrName/controller/question_controller.dart';
 import 'package:mrname/mrName/views/total_question_collections.dart';
 
-import 'conponets/constant.dart';
+import '../conponets/constant.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     });
     print('THIS IS SPLASH SCRENEN ________________________________________________');
-    Timer(Duration(seconds: 4), () {
+    Timer(Duration(seconds: 3), () {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>TotalQuestionCollections()));
     });
   }
@@ -33,7 +33,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff000000),
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+      ?Colors.black:Colors.white,
       body: SafeArea(
         child: Center(
           child: Column(
@@ -41,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text("MrName",
-                  style: splashTextStyle,
+                  style: getSplashTextStyle(context),
               )
             ],
           ),

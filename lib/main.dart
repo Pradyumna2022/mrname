@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:mrname/mrName/splash_screen.dart';
-import 'package:mrname/rar.dart';
+import 'package:mrname/mrName/views/splash_screen.dart';
 
 void main() {
   runApp( MyApp());
-
 }
 
 class MyApp extends StatefulWidget {

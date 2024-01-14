@@ -39,6 +39,9 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   pinput: ^3.0.1
   get: ^4.6.6
+  overlay_loader_with_app_icon: ^0.0.3
+  percent_indicator: ^4.2.3
+  connectivity_plus: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -89,7 +92,7 @@ flutter:
   #   - family: Trajan Pro
     - family: Lora
       fonts:
-        - asset: assets/fonts/questionFonts/Lora-Medium.ttf
+        - asset: assets/fonts/questionFonts/Lora-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
