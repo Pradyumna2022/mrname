@@ -20,10 +20,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     print('THIS IS SPLASH SCRENEN ________________________________________________');
-    productController.fetchData();
-    setState(() {
+    // productController.fetchData();
 
-    });
     print('THIS IS SPLASH SCRENEN ________________________________________________');
     Timer(Duration(seconds: 3), () {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>TotalQuestionCollections()));

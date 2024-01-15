@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mrname/mrName/apiservices/api_services.dart';
 import 'package:mrname/mrName/model/question_model.dart';
+import 'package:shimmer/shimmer.dart';
 import '../conponets/constant.dart';
 import '../conponets/question_data.dart';
 import '../controller/question_controller.dart';
@@ -42,7 +43,8 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
             // For example:
             questionDataList =
                 List.generate(newData.length, (_) => QuestionData());
-          });
+          }
+          );
         }
       }
     } catch (e) {
@@ -110,6 +112,7 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
       setState(() {
         _connectivityResult = result;
+        print(_connectivityResult.toString()+'-------------------------------------------');
       });
 
       if (_connectivityResult == ConnectivityResult.mobile ||
@@ -119,12 +122,17 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
       }
     });
   }
+  // bool isFirstTime =true;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _initializeConnectivity();
     _subscribeToConnectivityChanges();
+    Future.delayed(Duration(milliseconds: 300), () {
+      productController.productList.clear();
+      productController.fetchData();
+    });
   }
 
   @override
@@ -155,16 +163,16 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                 final snackBar = SnackBar(
                     backgroundColor:
                         Theme.of(context).brightness == Brightness.dark
-                            ? blackColor
-                            : whiteColor,
+                            ? darkQueOptionBackgroundColor
+                            : lightQueOptionBackgroundColor,
                     content: Row(
                       children: [
                         Text(
                           "Double Tap to Close App              ",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                       fontWeight: FontWeight.bold,
                               fontSize: 19,
-                              fontFamily: 'Lora',
+                                     fontFamily: 'Lora',
                               color: Theme.of(context).brightness == Brightness.dark
                                   ? whiteColor
                                   : blackColor),
@@ -183,14 +191,17 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
             },
             child: Obx(() {
               if (productController.isLoading.value) {
-                return Center(
-                  child: LoadingAnimationWidget.discreteCircle(
-                      size: 50, color: Theme.of(context).brightness == Brightness.dark?
-                      whiteColor:blackColor,
-                      secondRingColor : Colors.pink,
-                      thirdRingColor: Colors.yellow
-                  ),
-                );
+                return
+                    /// This is animated coloring of loading animation widget of the Circular progress indicator
+                //   Center(
+                //   child: LoadingAnimationWidget.discreteCircle(
+                //       size: 50, color: Theme.of(context).brightness == Brightness.dark?
+                //       whiteColor:blackColor,
+                //       secondRingColor : Colors.pink,
+                //       thirdRingColor: Colors.yellow
+                //   ),
+                // );
+                shimmerEffect();
               } else {
                 return CustomScrollView(
                   slivers: [
@@ -487,7 +498,8 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                                               });
                                             }
                                           },
-                                          child: Container(
+                                          child:
+                                          Container(
                                             height: 128,
                                             width: 60,
                                             decoration: BoxDecoration(
@@ -539,6 +551,82 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
           ),
         ),
       ),
+    );
+  }
+
+  /// simmer effect code here !
+  Widget shimmerEffect() {
+    return ListView.builder(
+      itemCount: 10, // You can adjust the number of shimmer items
+      itemBuilder: (context, index) {
+        return Shimmer.fromColors(
+
+          baseColor: Theme.of(context).brightness == Brightness.dark
+              ? darkQueOptionBackgroundColor
+              : lightQueOptionBackgroundColor,
+          highlightColor: Theme.of(context).brightness == Brightness.dark
+              ? whiteColor
+              : blackColor,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
+            child: Column(
+              children: [
+                Container(
+                  // Customize the shimmer container as per your UI
+                  width: MediaQuery.sizeOf(context).width,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.white, // Customize as needed
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+                SizedBox(height: 5),
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          // Customize the shimmer container as per your UI
+                          width: 250,
+                          height: 70,
+                          decoration: BoxDecoration(
+                            color: Colors.white, // Customize as needed
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          margin: EdgeInsets.only(bottom: 6),
+                        ),
+                        Container(
+                          // Customize the shimmer container as per your UI
+                          width: 250,
+                          height: 70,
+                          decoration: BoxDecoration(
+                            color: Colors.white, // Customize as needed
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Spacer(),
+                    Container(
+                      height: 145,
+                      width: 60,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .brightness ==
+                            Brightness.dark
+                            ? darkQueOptionBackgroundColor
+                            : lightQueOptionBackgroundColor,
+                        borderRadius:
+                        BorderRadius.circular(4),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

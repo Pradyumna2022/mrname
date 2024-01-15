@@ -11,7 +11,7 @@ class ApiServices{
   static Future<List<dynamic>?> getApi()async{
      try{
        var response = await http.get(Uri.parse('https://quiz.dailytest.in/api/questions'));
-       print(response.body);
+
        if(response.statusCode == 200){
          return quizModelFromJson(response.body);
        }else{
