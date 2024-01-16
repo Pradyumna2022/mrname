@@ -39,3 +39,10 @@ const Color lightQueOptionBackgroundColor = Color(0xffE6E5E4);
 const Color blackColor = Colors.black;
 const Color whiteColor = Colors.white;
 
+/// *************************  HEIGHT AND WIDTH OF THE APP
+//
+// final mobileWidth = MediaQuery.of(context).size.width * 0.774;
+// final rotateWidth = MediaQuery.of(context).size.width * 0.8;
+// final mobileHeight = MediaQuery.of(context).size.height * 0.177;
+// final rotateHeight = MediaQuery.of(context).size.height * 0.37;
+
