@@ -8,8 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mrname/mrName/apiservices/api_services.dart';
 import 'package:mrname/mrName/model/question_model.dart';
 import 'package:shimmer/shimmer.dart';
-import '../conponets/constant.dart';
-import '../conponets/question_data.dart';
+import '../components/constant.dart';
+import '../components/question_data.dart';
 import '../controller/question_controller.dart';
 
 class TotalQuestionCollections extends StatefulWidget {
