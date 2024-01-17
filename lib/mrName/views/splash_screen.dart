@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mrname/mrName/controller/question_controller.dart';
 import 'package:mrname/mrName/views/total_question_collections.dart';
@@ -34,6 +35,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Theme.of(context).brightness == Brightness.dark ? Colors.black:Colors.white,
+      statusBarIconBrightness: theme.brightness == Brightness.dark ? Brightness.light : Brightness.dark,
+    )
+    );
+
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.dark
       ?Colors.black:Colors.white,

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mrname/mrName/views/splash_screen.dart';
-import 'package:mrname/rar.dart';
-
 void main() {
   runApp( MyApp());
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.white, // Color you want
+    statusBarIconBrightness: Brightness.dark // Brightness of icons on the status bar
+  ));
 }
+
 
 class MyApp extends StatefulWidget {
    MyApp({super.key});
@@ -34,9 +33,6 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       color: Colors.red,
       home: SplashScreen(),
-      theme: ThemeData.light(
-        useMaterial3: true
-      ), // Initial theme, it will be overridden
       darkTheme: ThemeData.dark(
           useMaterial3: true
       ), // Initial dark theme, it will be overridden

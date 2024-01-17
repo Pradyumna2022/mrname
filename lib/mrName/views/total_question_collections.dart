@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mrname/mrName/apiservices/api_services.dart';
@@ -26,7 +27,7 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
   List<QuestionData> questionDataList =
-      List.generate(100000, (_) => QuestionData());
+      List.generate(1000000, (_) => QuestionData());
 
   Future<void> _onRefresh() async {
     try {
@@ -127,7 +128,6 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
   // bool isFirstTime =true;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _initializeConnectivity();
     productController.productList.clear();
@@ -140,31 +140,37 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Theme.of(context).brightness == Brightness.dark ? Colors.black:Colors.white,
+      statusBarIconBrightness: theme.brightness == Brightness.dark ? Brightness.light : Brightness.dark,
+      )
+    );
+
     final mobileWidth = MediaQuery.of(context).size.width * 0.2;
     final mobileHeight = MediaQuery.of(context).size.height * 0.179;
-    final mobileHeightForOption = MediaQuery.of(context).size.height * 0.088;
     final mobileWidthForOption = MediaQuery.of(context).size.width * 0.7;
     print(MediaQuery.of(context).size.height );
     return SafeArea(
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(411)
-          ),
-          backgroundColor: Theme.of(context).brightness == Brightness.dark
-              ? whiteColor
-              : blackColor,
-          onPressed: (){
-            _scrollController.animateTo(0.0, duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
-          },child:
-        // Icon(Icons.arrow_upward,
-        // color: Theme.of(context).brightness == Brightness.dark
-        //     ? darkQueOptionBackgroundColor
-        //     : lightQueOptionBackgroundColor,),
-          Image.asset('assets/icons/up-arrow1.png', color: Theme.of(context).brightness == Brightness.dark
-              ? darkQueOptionBackgroundColor
-              : lightQueOptionBackgroundColor,scale: 15,)
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   shape: RoundedRectangleBorder(
+        //     borderRadius: BorderRadius.circular(411)
+        //   ),
+        //   backgroundColor: Theme.of(context).brightness == Brightness.dark
+        //       ? whiteColor
+        //       : blackColor,
+        //   onPressed: (){
+        //     _scrollController.animateTo(0.0, duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+        //   },child:
+        // // Icon(Icons.arrow_upward,
+        // // color: Theme.of(context).brightness == Brightness.dark
+        // //     ? darkQueOptionBackgroundColor
+        // //     : lightQueOptionBackgroundColor,),
+        //   Image.asset('assets/icons/up-arrow1.png', color: Theme.of(context).brightness == Brightness.dark
+        //       ? darkQueOptionBackgroundColor
+        //       : lightQueOptionBackgroundColor,scale: 15,)
+        // ),
         backgroundColor: Theme.of(context).brightness == Brightness.dark
             ? blackColor
             : whiteColor,
@@ -172,7 +178,7 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
           strokeWidth: 2,
           backgroundColor: Theme.of(context).brightness == Brightness.dark
               ? blackColor
-              : lightQueOptionBackgroundColor,
+              : whiteColor,
           color: Theme.of(context).brightness == Brightness.dark
               ? whiteColor
               : blackColor,
@@ -267,14 +273,16 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 30,
-                                                  color: Colors.white70),
+                                                  color: Colors.white70
+                                              ),
                                             ),
                                             TextSpan(
                                               text: ' Internet Connection',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 35,
-                                                  color: Colors.yellow),
+                                                  color: Colors.yellow
+                                              ),
                                             ),
                                           ]),
                                         ),
@@ -364,7 +372,7 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                                                 }
                                               },
                                               child: Container(
-                                                height: mobileHeightForOption,
+                                                padding: EdgeInsets.symmetric(vertical: 16),
                                                 width: mobileWidthForOption,
                                                 decoration: BoxDecoration(
                                                   color: getAnswerColor(
@@ -411,8 +419,7 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                                                           index]
                                                               .optionAHindi
                                                               .toString(),
-                                                          style: GoogleFonts
-                                                              .josefinSans(
+                                                          style:TextStyle(
                                                               fontSize: 15,
                                                               color:
                                                               getTextColor(
@@ -420,7 +427,8 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                                                                   1),
                                                               fontWeight:
                                                               FontWeight
-                                                                  .w700)),
+                                                                  .w700,fontFamily:
+                                                          'Lora',)),
                                                     ],
                                                   ),
                                                 ),
@@ -441,8 +449,7 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                                                 }
                                               },
                                               child: Container(
-
-                                                height: mobileHeightForOption,
+                                                padding: EdgeInsets.symmetric(vertical: 14),
                                                 width: mobileWidthForOption,
                                                 decoration: BoxDecoration(
                                                   color: getAnswerColor(
@@ -488,8 +495,7 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                                                           index]
                                                               .optionBHindi
                                                               .toString(),
-                                                          style: GoogleFonts
-                                                              .josefinSans(
+                                                          style: TextStyle(
                                                               fontSize: 15,
                                                               color:
                                                               getTextColor(
@@ -497,7 +503,8 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                                                                   2),
                                                               fontWeight:
                                                               FontWeight
-                                                                  .w700)),
+                                                                  .w700,fontFamily:
+                                                          'Lora',)),
                                                     ],
                                                   ),
                                                 ),
