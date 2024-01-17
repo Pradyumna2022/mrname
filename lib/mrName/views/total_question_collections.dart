@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +10,7 @@ import 'package:shimmer/shimmer.dart';
 import '../components/constant.dart';
 import '../components/question_data.dart';
 import '../controller/question_controller.dart';
+
 
 class TotalQuestionCollections extends StatefulWidget {
   const TotalQuestionCollections({Key? key}) : super(key: key);
@@ -122,6 +122,7 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
       }
     });
   }
+  ScrollController _scrollController = ScrollController();
 
   // bool isFirstTime =true;
   @override
@@ -140,16 +141,30 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
   @override
   Widget build(BuildContext context) {
     final mobileWidth = MediaQuery.of(context).size.width * 0.2;
-    final rotateWidth = MediaQuery.of(context).size.width * 0.1;
     final mobileHeight = MediaQuery.of(context).size.height * 0.179;
-    final rotateHeight = MediaQuery.of(context).size.height * 0.38;
     final mobileHeightForOption = MediaQuery.of(context).size.height * 0.088;
-    final rotateHeightForOption = MediaQuery.of(context).size.height * 0.185;
-    final mobileWidthForOption = MediaQuery.of(context).size.width * 0.74;
-    final rotateWidthForOption = MediaQuery.of(context).size.width * 0.87;
+    final mobileWidthForOption = MediaQuery.of(context).size.width * 0.7;
     print(MediaQuery.of(context).size.height );
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(411)
+          ),
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? whiteColor
+              : blackColor,
+          onPressed: (){
+            _scrollController.animateTo(0.0, duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+          },child:
+        // Icon(Icons.arrow_upward,
+        // color: Theme.of(context).brightness == Brightness.dark
+        //     ? darkQueOptionBackgroundColor
+        //     : lightQueOptionBackgroundColor,),
+          Image.asset('assets/icons/up-arrow1.png', color: Theme.of(context).brightness == Brightness.dark
+              ? darkQueOptionBackgroundColor
+              : lightQueOptionBackgroundColor,scale: 15,)
+        ),
         backgroundColor: Theme.of(context).brightness == Brightness.dark
             ? blackColor
             : whiteColor,
@@ -199,6 +214,7 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                 return shimmerEffect();
               } else {
                 return CustomScrollView(
+                  controller: _scrollController,
                   slivers: [
                     SliverAppBar(
                       title: Text(
@@ -267,6 +283,7 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                               )),
                         if (productController.productList.isNotEmpty)
                           ListView.builder(
+
                             shrinkWrap: true,
                             physics: BouncingScrollPhysics(),
                             itemCount: productController.productList.length,
@@ -347,16 +364,8 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                                                 }
                                               },
                                               child: Container(
-                                                height:  (MediaQuery.of(context)
-                                                    .size
-                                                    .height <
-                                                    752)
-                                                    ? rotateHeightForOption:mobileHeightForOption,
-                                                width: (MediaQuery.of(context)
-                                                    .size
-                                                    .width >
-                                                    360)
-                                                    ? rotateWidthForOption:mobileWidthForOption,
+                                                height: mobileHeightForOption,
+                                                width: mobileWidthForOption,
                                                 decoration: BoxDecoration(
                                                   color: getAnswerColor(
                                                       index,
@@ -433,16 +442,8 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                                               },
                                               child: Container(
 
-                                                height:  (MediaQuery.of(context)
-                                                    .size
-                                                    .height <
-                                                    752)
-                                                    ? rotateHeightForOption:mobileHeightForOption,
-                                                width: (MediaQuery.of(context)
-                                                    .size
-                                                    .width >
-                                                    360)
-                                                    ? rotateWidthForOption:mobileWidthForOption,
+                                                height: mobileHeightForOption,
+                                                width: mobileWidthForOption,
                                                 decoration: BoxDecoration(
                                                   color: getAnswerColor(
                                                       index,
@@ -535,16 +536,8 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                                             }
                                           },
                                           child: Container(
-                                            height:  (MediaQuery.of(context)
-                                                .size
-                                                .height <
-                                                752)
-                                                ? rotateHeight:mobileHeight,
-                                            width: (MediaQuery.of(context)
-                                                .size
-                                                .width >
-                                                360)
-                                                ? rotateWidth:mobileWidth,
+                                            height:mobileHeight,
+                                            width: mobileWidth,
                                             decoration: BoxDecoration(
                                               color: Theme.of(context)
                                                   .brightness ==
