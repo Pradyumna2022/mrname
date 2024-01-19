@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mrname/mrName/apiservices/api_services.dart';
 import 'package:mrname/mrName/model/question_model.dart';
 import 'package:shimmer/shimmer.dart';
@@ -223,6 +222,10 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                   controller: _scrollController,
                   slivers: [
                     SliverAppBar(
+                      elevation: 0,
+                      surfaceTintColor:  Theme.of(context).brightness == Brightness.dark
+                          ? blackColor
+                          : whiteColor,
                       title: Text(
                         'MrName',
                         style: TextStyle(
@@ -603,9 +606,11 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
       children: [
         Shimmer.fromColors(
           child: Container(
+            margin: EdgeInsets.zero,
+            padding: EdgeInsets.zero,
             // Customize the shimmer container as per your UI
             width: MediaQuery.sizeOf(context).width,
-            height: MediaQuery.sizeOf(context).height * 0.1,
+            height: MediaQuery.sizeOf(context).height * 0.085,
             decoration: BoxDecoration(
               color: Colors.white, // Customize as needed
               borderRadius: BorderRadius.circular(4),
@@ -618,7 +623,7 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
               ? whiteColor
               : blackColor,
         ),
-        SizedBox(height: 5),
+        SizedBox(height: 2,),
         Expanded(
           child: ListView.builder(
             itemCount: 10, // You can adjust the number of shimmer items
@@ -632,19 +637,21 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                     : blackColor,
                 child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 8.0,),
                   child: Column(
                     children: [
                       Container(
+
                         // Customize the shimmer container as per your UI
                         width: MediaQuery.sizeOf(context).width,
-                        height: 100,
+                        margin: EdgeInsets.only(bottom: 5),
+                        height: 75,
                         decoration: BoxDecoration(
                           color: Colors.white, // Customize as needed
                           borderRadius: BorderRadius.circular(4),
                         ),
                       ),
-                      SizedBox(height: 5),
+
                       Row(
                         children: [
                           Column(
@@ -657,7 +664,7 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                                   color: Colors.white, // Customize as needed
                                   borderRadius: BorderRadius.circular(4),
                                 ),
-                                margin: EdgeInsets.only(bottom: 6),
+                                margin: EdgeInsets.only(bottom: 5),
                               ),
                               Container(
                                 // Customize the shimmer container as per your UI
@@ -667,13 +674,16 @@ class _TotalQuestionCollectionsState extends State<TotalQuestionCollections> {
                                   color: Colors.white, // Customize as needed
                                   borderRadius: BorderRadius.circular(4),
                                 ),
+                                margin: EdgeInsets.only(bottom: 17),
+                                padding: EdgeInsets.zero,
                               ),
                             ],
                           ),
                           Spacer(),
                           Container(
                             height: 145,
-                            width: 60,
+                            margin: EdgeInsets.only(bottom: 20),
+                            width: 70,
                             decoration: BoxDecoration(
                               color: Theme.of(context).brightness ==
                                       Brightness.dark
